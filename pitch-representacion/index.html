@@ -63,6 +63,22 @@ body{font-family:var(--texto);color:var(--crema)}
 .celda.f span{position:absolute;right:0;bottom:0;background:var(--amarillo);color:var(--tinta);font-size:13px;padding:1px 5px;font-weight:800}
 .celda.f{opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .45s cubic-bezier(.3,1.6,.5,1)}
 .activa .celda.f,.estatico .celda.f{opacity:1;transform:none}
+.celda.f.otra{border:2px solid rgba(251,243,220,.55)}
+.celda.f.otra img{filter:grayscale(1) contrast(1.05)}
+.activa .celda.f.otra,.estatico .celda.f.otra{opacity:.6}
+.celda.f.otra span{background:var(--crema)}
+.leyenda{display:flex;align-items:center;gap:14px;font:600 24px var(--texto);color:#DDE5FA}
+.leyenda i{width:30px;height:30px;border-radius:3px;display:inline-block}
+/* los 7 */
+.siete{position:absolute;left:95px;top:450px;display:flex;gap:20px}
+.lider{width:230px}
+.lider .marco{position:relative;width:230px;height:240px}
+.lider .marco::before{content:"";position:absolute;left:10px;top:30px;width:210px;height:210px;border-radius:50%;background:url(img/circulo-halftone.png) center/cover}
+.lider .marco img{position:absolute;left:0;top:0;width:230px;clip-path:path("M0 0 H230 V135 H220 A105 105 0 0 1 10 135 H0 Z")}
+.lider .pu{display:inline-block;margin-top:22px;background:var(--crema);color:var(--tinta);font:800 20px var(--texto);padding:3px 10px}
+.lider.top .pu{background:var(--amarillo)}
+.lider h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:34px;line-height:1;color:var(--crema);margin-top:14px}
+.lider p{font:600 20px/1.3 var(--texto);color:#DDE5FA;margin-top:8px}
 
 #ayuda{position:fixed;z-index:9;right:16px;bottom:12px;font:500 13px var(--texto);color:rgba(251,243,220,.45)}
 @media print{#ayuda{display:none}}
@@ -71,10 +87,10 @@ body{font-family:var(--texto);color:var(--crema)}
 <body>
 <div id="escenario">
 
-<!-- 1 · PORTADA -->
+<!-- · PORTADA -->
 <section class="slide" data-nota="Presentarme. Nombre, semestre, y que vengo a hablar de nuestra carrera.">
   <div style="position:absolute;right:0;top:0;width:760px;height:1080px;overflow:hidden">
-    <img src="img/campus-eafit.jpg" alt="Plazoleta con las letras EAFIT" style="width:100%;height:100%;object-fit:cover;object-position:52% 50%;filter:saturate(.95) contrast(1.05)">
+    <img src="img/campus-eafit-dia.jpg" alt="Edificio de ladrillo de EAFIT con cielo azul y estudiantes" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%">
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(52,86,181,.35),transparent 30%)"></div>
   </div>
   <svg class="rayos e e4" viewBox="0 0 300 300" style="position:absolute;left:1010px;top:70px;width:270px;transform:rotate(8deg)">
@@ -86,7 +102,7 @@ body{font-family:var(--texto);color:var(--crema)}
   <p class="credito" style="right:24px;bottom:16px">Foto: Wikimedia Commons</p>
 </section>
 
-<!-- 2 · MERCO -->
+<!-- · MERCO -->
 <section class="slide" data-nota="Gancho. Arrancar con el dato, sin rodeos.">
   <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:50px;color:var(--amarillo)">21 de octubre de 2026</p>
   <h2 class="d e e2" style="position:absolute;left:80px;top:230px;font-size:104px;width:980px">Merco publicó los <span class="y">100 líderes</span> con mejor reputación de Colombia.</h2>
@@ -96,10 +112,10 @@ body{font-family:var(--texto);color:var(--crema)}
   </div>
   <div class="cinta" style="left:1390px;top:62px;transform:rotate(-6deg)"></div>
   <p class="credito" style="right:24px;bottom:16px">Gráfico: La República</p>
-  <p class="num">2/15</p>
+  <p class="num">2/16</p>
 </section>
 
-<!-- 3 · EL NÚMERO 1 -->
+<!-- · EL NÚMERO 1 -->
 <section class="slide" data-nota="Dejar que el 10.000 respire un segundo.">
   <img class="e e2" src="img/circulo-halftone.png" alt="" style="position:absolute;right:120px;top:150px;width:860px">
   <img class="e e3" src="img/mora-retrato-col.png" alt="Juan Carlos Mora Uribe" style="position:absolute;right:140px;bottom:0;height:900px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.25))">
@@ -109,40 +125,44 @@ body{font-family:var(--texto);color:var(--crema)}
   <p class="d y e e4" style="position:absolute;left:76px;top:590px;font-size:230px;line-height:.9">10.000</p>
   <p class="mano e e5" style="position:absolute;left:90px;top:810px;font-size:52px">puntos. puntaje perfecto.</p>
   <p class="credito" style="right:24px;bottom:16px">Foto: Grupo Bancolombia</p>
-  <p class="num">3/15</p>
+  <p class="num">3/16</p>
 </section>
 
-<!-- 4 · PREGUNTA -->
+<!-- · PREGUNTA -->
 <section class="slide" data-nota="Pausa. Mirar al público antes de responder.">
   <svg class="rayos e e3" viewBox="0 0 300 300" style="position:absolute;left:1340px;top:180px;width:330px;transform:rotate(14deg)">
     <path d="M40 140 L18 60 L58 52 Z"/><path d="M98 104 L96 14 L136 20 Z"/><path d="M160 112 L196 34 L226 58 Z"/><path d="M196 166 L276 140 L282 178 Z"/>
   </svg>
   <h2 class="d e e1" style="position:absolute;left:80px;top:300px;font-size:250px">¿Saben qué<br><span class="y">estudió?</span></h2>
-  <p class="num">4/15</p>
+  <p class="num">4/16</p>
 </section>
 
-<!-- 5 · LA RESPUESTA -->
+<!-- · LA RESPUESTA -->
 <section class="slide" data-nota="Remarcar: aquí, en EAFIT. Lo mismo que estudiamos nosotros.">
   <img class="e e4" src="img/mora-bancolombia-col.png" alt="Juan Carlos Mora con los brazos cruzados" style="position:absolute;right:170px;bottom:0;height:820px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.25))">
   <h2 class="d e e1" style="position:absolute;left:80px;top:200px;font-size:150px;width:1200px">Administración<br>de Negocios.</h2>
   <h2 class="d y e e2" style="position:absolute;left:80px;top:530px;font-size:150px">Aquí, en EAFIT.</h2>
   <p class="mano e e3" style="position:absolute;left:90px;top:740px;font-size:50px">(después hizo un MBA en Babson College)</p>
   <p class="credito" style="right:24px;bottom:16px">Foto: Cambio</p>
-  <p class="num">5/15</p>
+  <p class="num">5/16</p>
 </section>
 
-<!-- 6 · 16 DE 100 -->
+<!-- · 16 DE 100 -->
 <section class="slide" data-nota="Y no está solo. 16 de esos 100 son eafitenses. Señalar la grilla: cada cuadro es un puesto del ranking.">
   <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:52px;color:var(--amarillo)">y no está solo</p>
   <h2 class="d e e2" style="position:absolute;left:80px;top:225px;font-size:300px;line-height:.85">16<span style="font-size:.42em" class="y"> de 100</span></h2>
   <p class="d e e3" style="position:absolute;left:84px;top:520px;font-size:84px">son eafitenses.</p>
   <p class="cuerpo e e4" style="position:absolute;left:84px;top:650px;width:640px">Cada cuadro es un puesto del ranking. Los que tienen cara estudiaron en esta universidad.</p>
+  <div class="e e5" style="position:absolute;left:84px;top:800px;display:grid;gap:14px">
+    <p class="leyenda"><i style="border:3px solid var(--amarillo)"></i>Administración de Negocios (7)</p>
+    <p class="leyenda"><i style="border:2px solid rgba(251,243,220,.55);opacity:.6"></i>Otras carreras (9)</p>
+  </div>
   <div class="grilla" id="grilla100" style="left:1000px;top:100px"></div>
   <p class="credito" style="right:24px;bottom:16px">Fotos: Universidad EAFIT</p>
-  <p class="num">6/15</p>
+  <p class="num">6/16</p>
 </section>
 
-<!-- 7 · LA RECTORA -->
+<!-- · LA RECTORA -->
 <section class="slide" data-nota="Entre ellos, nuestra rectora. También administradora de negocios.">
   <img class="e e2" src="img/circulo-halftone.png" alt="" style="position:absolute;right:170px;top:170px;width:780px;transform:rotate(180deg)">
   <img class="e e3" src="img/restrepo-sentada-col.png" alt="Claudia Restrepo Montoya" style="position:absolute;right:300px;bottom:0;height:960px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.25))">
@@ -151,20 +171,38 @@ body{font-family:var(--texto);color:var(--crema)}
   <p class="d e e4" style="position:absolute;left:84px;top:640px;font-size:60px;width:820px">También <span class="y">administradora<br>de negocios</span> de EAFIT.</p>
   <p class="cuerpo e e5" style="position:absolute;left:84px;top:840px">Puesto <b>24</b> en Merco Líderes 2026.</p>
   <p class="credito" style="right:24px;bottom:16px">Foto: El Espectador</p>
-  <p class="num">7/15</p>
+  <p class="num">7/16</p>
 </section>
 
-<!-- 8 · NO ES CASUALIDAD -->
+<!-- · LOS 7 -->
+<section class="slide" data-nota="De esos 16, siete estudiaron exactamente lo mismo que nosotros. Y los tres eafitenses mejor ubicados, también.">
+  <p class="mano e e1" style="position:absolute;left:84px;top:110px;font-size:52px;color:var(--amarillo)">de esos 16…</p>
+  <h2 class="d e e1" style="position:absolute;left:80px;top:180px;font-size:100px;width:1760px"><span class="y">7</span> estudiaron Administración de Negocios.</h2>
+  <p class="mano e e6" style="position:absolute;left:95px;top:300px;font-size:44px">los tres primeros, también ↓</p>
+  <div class="siete">
+    <div class="lider top e e2"><div class="marco"><img src="img/busto-mora.png" alt="Juan Carlos Mora"></div><span class="pu">Puesto 1</span><h3>Juan Carlos Mora</h3><p>Bancolombia</p></div>
+    <div class="lider top e e2"><div class="marco"><img src="img/busto-calle.png" alt="Juan Esteban Calle"></div><span class="pu">Puesto 11</span><h3>Juan Esteban Calle</h3><p>Grupo Argos</p></div>
+    <div class="lider top e e3"><div class="marco"><img src="img/busto-sierra.png" alt="Ricardo Sierra"></div><span class="pu">Puesto 17</span><h3>Ricardo Sierra</h3><p>Celsia</p></div>
+    <div class="lider  e e3"><div class="marco"><img src="img/busto-restrepo.png" alt="Claudia Restrepo"></div><span class="pu">Puesto 24</span><h3>Claudia Restrepo</h3><p>Universidad EAFIT</p></div>
+    <div class="lider  e e4"><div class="marco"><img src="img/busto-escobar.png" alt="Miguel Escobar"></div><span class="pu">Puesto 27</span><h3>Miguel Escobar</h3><p>Postobón</p></div>
+    <div class="lider  e e4"><div class="marco"><img src="img/busto-botero.png" alt="Luis Alberto Botero"></div><span class="pu">Puesto 89</span><h3>Luis Alberto Botero</h3><p>Alianza Team</p></div>
+    <div class="lider  e e5"><div class="marco"><img src="img/busto-velez.png" alt="Juan Camilo Vélez"></div><span class="pu">Puesto 90</span><h3>Juan Camilo Vélez</h3><p>Sufi</p></div>
+  </div>
+  <p class="credito" style="right:24px;bottom:16px">Fotos: Grupo Bancolombia, Valora Analitik, El Colombiano, El Espectador, La República, Universidad EAFIT</p>
+  <p class="num">8/16</p>
+</section>
+
+<!-- · NO ES CASUALIDAD -->
 <section class="slide" data-nota="Un país de más de 52 millones. Eso no es casualidad.">
   <p class="mano e e1" style="position:absolute;left:80px;top:170px;font-size:52px">en un país de</p>
   <p class="d e e2" style="position:absolute;left:76px;top:240px;font-size:220px;line-height:.9">+52 millones</p>
   <p class="d e e3" style="position:absolute;left:80px;top:460px;font-size:80px">de personas…</p>
   <h2 class="d y e e4" style="position:absolute;left:80px;top:640px;font-size:180px">Eso no es casualidad.</h2>
   <p class="credito" style="right:24px;bottom:16px">Población: proyección DANE</p>
-  <p class="num">8/15</p>
+  <p class="num">9/16</p>
 </section>
 
-<!-- 9 · EL MITO -->
+<!-- · EL MITO -->
 <section class="slide" data-nota="El mito. Bajar el tono, como quien repite algo que ya escuchó mil veces.">
   <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:52px;color:var(--amarillo)">muchas veces nos han dicho que…</p>
   <div class="papel e e2" style="left:110px;top:270px;width:900px;height:250px;transform:rotate(-2deg);display:flex;align-items:center;padding:0 60px">
@@ -175,17 +213,17 @@ body{font-family:var(--texto);color:var(--crema)}
     <p class="d" style="color:var(--tinta);font-size:96px">"La que se escoge por descarte."</p>
   </div>
   <div class="cinta" style="left:1560px;top:568px;transform:rotate(9deg)"></div>
-  <p class="num">9/15</p>
+  <p class="num">10/16</p>
 </section>
 
-<!-- 10 · LA PREGUNTA INCÓMODA -->
+<!-- · LA PREGUNTA INCÓMODA -->
 <section class="slide" data-nota="Entonces… pregunta directa. Sin sarcasmo.">
   <p class="mano e e1" style="position:absolute;left:80px;top:290px;font-size:56px;color:var(--amarillo)">entonces…</p>
   <h2 class="d e e2" style="position:absolute;left:80px;top:380px;font-size:136px;width:1600px">¿Por qué los que dicen eso <span class="y">no están en esa lista?</span></h2>
-  <p class="num">10/15</p>
+  <p class="num">11/16</p>
 </section>
 
-<!-- 11 · EL SENTIDO -->
+<!-- · EL SENTIDO -->
 <section class="slide" data-nota="El sentido de la carrera. Tres verbos: ocupar, tener, liderar.">
   <p class="mano e e1" style="position:absolute;left:80px;top:200px;font-size:52px;color:var(--amarillo)">aquí nos están formando para</p>
   <div style="position:absolute;left:80px;top:300px">
@@ -194,10 +232,10 @@ body{font-family:var(--texto);color:var(--crema)}
     <p class="d e e4" style="font-size:118px;margin-top:20px">Liderar <span class="y">las transformaciones</span></p>
   </div>
   <p class="mano e e5" style="position:absolute;left:90px;top:840px;font-size:56px">de las organizaciones del país.</p>
-  <p class="num">11/15</p>
+  <p class="num">12/16</p>
 </section>
 
-<!-- 12 · LA EXIGENCIA -->
+<!-- · LA EXIGENCIA -->
 <section class="slide" data-nota="Punto delicado: hablar en positivo. Primer nivel, no 'profes malos'. Si gano, voy a trabajar con la facultad.">
   <h2 class="d e e1" style="position:absolute;left:80px;top:130px;font-size:110px;width:1700px">Si queremos llegar allá, <span class="y">necesitamos ser los mejores.</span></h2>
   <p class="mano e e2" style="position:absolute;left:90px;top:420px;font-size:54px">y para eso merecemos estar bien representados:</p>
@@ -211,20 +249,20 @@ body{font-family:var(--texto);color:var(--crema)}
     <p class="d" style="color:var(--tinta);font-size:72px;margin-top:10px">Una formación a la altura de lo que vamos a liderar</p>
   </div>
   <div class="cinta" style="left:1560px;top:560px;transform:rotate(8deg)"></div>
-  <p class="num">12/15</p>
+  <p class="num">13/16</p>
 </section>
 
-<!-- 13 · NO SOMOS -->
+<!-- · NO SOMOS -->
 <section class="slide" data-nota="Cierre. Decirlo con calma, las tachaduras hacen el trabajo.">
   <img class="e e3" src="img/circulo-halftone.png" alt="" style="position:absolute;right:-260px;bottom:-300px;width:900px;transform:rotate(90deg)">
   <h2 class="d e e1" style="position:absolute;left:80px;top:170px;font-size:120px">No somos la carrera</h2>
   <p class="d e e2" style="position:absolute;left:80px;top:330px;font-size:120px">de los <span class="tachon">desparchados</span></p>
   <p class="d e e3" style="position:absolute;left:80px;top:490px;font-size:120px">ni de los que llegaron</p>
   <p class="d e e4" style="position:absolute;left:80px;top:650px;font-size:120px"><span class="tachon">por descarte.</span></p>
-  <p class="num">13/15</p>
+  <p class="num">14/16</p>
 </section>
 
-<!-- 14 · SOMOS -->
+<!-- · SOMOS -->
 <section class="slide" data-nota="Remate. Pausa antes de 'por eso quiero ser su representante'.">
   <svg class="rayos e e3" viewBox="0 0 300 300" style="position:absolute;left:1420px;top:80px;width:360px;transform:rotate(10deg)">
     <path d="M40 140 L18 60 L58 52 Z"/><path d="M98 104 L96 14 L136 20 Z"/><path d="M160 112 L196 34 L226 58 Z"/><path d="M196 166 L276 140 L282 178 Z"/>
@@ -234,7 +272,7 @@ body{font-family:var(--texto);color:var(--crema)}
   <p class="firma e e5">Emmanuel Ortiz Serna &nbsp;·&nbsp; <span style="font-weight:500;color:#DDE5FA">Administración de Negocios · EAFIT</span></p>
 </section>
 
-<!-- 15 · FUENTES -->
+<!-- · FUENTES -->
 <section class="slide" data-nota="Tener a mano si alguien pregunta por los datos.">
   <h2 class="d e e1" style="position:absolute;left:80px;top:110px;font-size:90px">Cada cifra <span class="y">tiene fuente</span></h2>
   <ul class="cuerpo e e2" style="position:absolute;left:84px;top:270px;width:1700px;font-size:25px;list-style:none;line-height:1.75">
@@ -243,20 +281,22 @@ body{font-family:var(--texto);color:var(--crema)}
     <li><b>Formación de Juan Carlos Mora</b>: Administrador de Negocios de EAFIT, MBA de Babson College. World Economic Forum, perfil de Juan Carlos Mora.</li>
     <li><b>Claudia Restrepo Montoya</b>: administradora de negocios de EAFIT, rectora desde 2021. Forbes Colombia y El Colombiano.</li>
     <li><b>Población de Colombia</b>: más de 52 millones según las proyecciones del DANE.</li>
-    <li><b>Fotos</b>: Grupo Bancolombia, Cambio, El Espectador, Universidad EAFIT, La República y Wikimedia Commons. Uso académico.</li>
+    <li><b>Carrera de cada uno de los 16</b>: publicación de Instagram de @eskole (rectora de EAFIT), 23 de octubre de 2026, con las fichas de Universidad EAFIT.</li>
+    <li><b>Fotos</b>: Grupo Bancolombia, Cambio, Valora Analitik, El Colombiano, El Espectador, La República, Universidad EAFIT y Wikimedia Commons. Uso académico.</li>
   </ul>
-  <p class="num">15/15</p>
+  <p class="num">16/16</p>
 </section>
 
 </div>
 <p id="ayuda">← → para avanzar · F pantalla completa</p>
 <script>
 (function(){
+  const admin=[1,11,17,24,27,89,90];
   const puestos={1:'01',11:'11',17:'17',24:'24',26:'26',27:'27',32:'32',56:'56',57:'57',61:'61',71:'71',74:'74',84:'84',89:'89',90:'90',94:'94'};
   const g=document.getElementById('grilla100'); let orden=0;
   for(let i=1;i<=100;i++){
     const c=document.createElement('div');
-    if(puestos[i]){c.className='celda f';c.style.transitionDelay=(0.5+orden++*0.07)+'s';
+    if(puestos[i]){c.className='celda f'+(admin.includes(i)?'':' otra');c.style.transitionDelay=(0.5+orden++*0.07)+'s';
       c.innerHTML='<img src="img/cara-'+puestos[i]+'.jpg" alt=""><span>'+i+'</span>';}
     else{c.className='celda';c.textContent=i;}
     g.appendChild(c);
