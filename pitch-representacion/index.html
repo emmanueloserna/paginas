@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pitch representación estudiantil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Raleway:wght@500;700;800&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#3456B5; --azul-osc:#2A479C; --amarillo:#F7C21B; --crema:#FBF3DC;
+  --rojo:#E5322B; --tinta:#1B1B1B;
+  --display:'Anton', Impact, sans-serif;
+  --mano:'Shadows Into Light Two', cursive;
+  --texto:'Raleway', system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0f1d47;overflow:hidden}
+body{font-family:var(--texto);color:var(--crema)}
+#escenario{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;}
+.slide{position:absolute;inset:0;background:var(--azul);overflow:hidden;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s .45s}
+.slide.activa{opacity:1;visibility:visible;transition:opacity .45s ease}
+/* grano sutil para que no se vea plano */
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.d{font-family:var(--display);text-transform:uppercase;line-height:.98;letter-spacing:.005em;color:var(--crema)}
+.y{color:var(--amarillo)}
+.mano{font-family:var(--mano);color:var(--crema);line-height:1.05}
+.cuerpo{font-family:var(--texto);font-weight:500;font-size:30px;line-height:1.4;color:#DDE5FA}
+.cuerpo b{font-weight:800;color:var(--crema)}
+.num{position:absolute;left:80px;bottom:56px;font-family:var(--mano);font-size:30px;color:var(--crema);opacity:.85}
+.firma{position:absolute;left:80px;bottom:56px;font-family:var(--texto);font-weight:700;font-size:26px;color:var(--crema)}
+.credito{position:absolute;font-family:var(--texto);font-size:15px;font-weight:500;color:rgba(251,243,220,.6)}
+.etq{position:absolute;top:60px;right:80px;font-family:var(--texto);font-weight:700;font-size:24px;color:var(--crema)}
+
+/* papel rasgado con cinta */
+.papel{position:absolute;background:url(img/papel.jpg) center/cover;box-shadow:0 18px 40px rgba(0,0,0,.28);
+  clip-path:polygon(0% 2%,4% 0%,9% 1.5%,15% .3%,22% 1.8%,30% .4%,38% 1.6%,46% .2%,55% 1.7%,63% .5%,71% 1.9%,79% .3%,87% 1.5%,94% .2%,100% 1.4%,99.2% 8%,100% 16%,99% 25%,99.8% 34%,99.1% 43%,100% 52%,99.3% 61%,99.9% 70%,99% 79%,99.8% 88%,99.2% 96%,100% 99%,94% 100%,87% 98.6%,79% 99.8%,71% 98.4%,63% 99.7%,55% 98.5%,46% 99.9%,38% 98.4%,30% 99.6%,22% 98.3%,15% 99.8%,9% 98.5%,4% 99.7%,0% 98.2%,.8% 90%,0% 81%,.9% 72%,.1% 63%,.8% 54%,0% 45%,.9% 36%,.2% 27%,.9% 18%,0% 9%)}
+.cinta{position:absolute;width:190px;height:58px;background:rgba(247,194,27,.88);z-index:5;
+  clip-path:polygon(2% 8%,98% 0%,100% 30%,97% 55%,100% 92%,3% 100%,0% 70%,3% 45%,0% 18%)}
+
+/* rayos tipo "exclamación" */
+.rayos path{fill:var(--amarillo)}
+.tachon{position:relative;display:inline-block}
+.tachon::after{content:"";position:absolute;left:-2%;right:-2%;top:67%;height:.12em;background:var(--rojo);border-radius:8px;transform:rotate(-2.5deg) scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.65,0,.35,1) .5s}
+.activa .tachon::after,.estatico .tachon::after{transform:rotate(-2.5deg) scaleX(1)}
+.subr{background:linear-gradient(transparent 62%,rgba(247,194,27,.45) 62%,rgba(247,194,27,.45) 92%,transparent 92%)}
+
+/* entrada escalonada */
+.e{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.activa .e,.estatico .e{opacity:1;transform:none}
+.activa .e2{transition-delay:.15s}.activa .e3{transition-delay:.3s}.activa .e4{transition-delay:.45s}.activa .e5{transition-delay:.6s}.activa .e6{transition-delay:.8s}
+
+/* grilla 100 */
+.grilla{position:absolute;display:grid;grid-template-columns:repeat(10,78px);gap:9px}
+.celda{width:78px;height:78px;border:2px solid rgba(251,243,220,.28);border-radius:4px;position:relative;
+  font-family:var(--texto);font-size:13px;font-weight:700;color:rgba(251,243,220,.35);display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 5px}
+.celda.f{border:3px solid var(--amarillo);padding:0;overflow:hidden}
+.celda.f img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.05)}
+.celda.f span{position:absolute;right:0;bottom:0;background:var(--amarillo);color:var(--tinta);font-size:13px;padding:1px 5px;font-weight:800}
+.celda.f{opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .45s cubic-bezier(.3,1.6,.5,1)}
+.activa .celda.f,.estatico .celda.f{opacity:1;transform:none}
+
+#ayuda{position:fixed;z-index:9;right:16px;bottom:12px;font:500 13px var(--texto);color:rgba(251,243,220,.45)}
+@media print{#ayuda{display:none}}
+</style>
+</head>
+<body>
+<div id="escenario">
+
+<!-- 1 · PORTADA -->
+<section class="slide" data-nota="Presentarme. Nombre, semestre, y que vengo a hablar de nuestra carrera.">
+  <div style="position:absolute;right:0;top:0;width:760px;height:1080px;overflow:hidden">
+    <img src="img/campus-eafit.jpg" alt="Plazoleta con las letras EAFIT" style="width:100%;height:100%;object-fit:cover;object-position:52% 50%;filter:saturate(.95) contrast(1.05)">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(52,86,181,.35),transparent 30%)"></div>
+  </div>
+  <svg class="rayos e e4" viewBox="0 0 300 300" style="position:absolute;left:1010px;top:70px;width:270px;transform:rotate(8deg)">
+    <path d="M40 140 L18 60 L58 52 Z"/><path d="M98 104 L96 14 L136 20 Z"/><path d="M160 112 L196 34 L226 58 Z"/><path d="M196 166 L276 140 L282 178 Z"/>
+  </svg>
+  <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:46px;color:var(--amarillo)">Administración de Negocios · EAFIT</p>
+  <h1 class="d e e2" style="position:absolute;left:80px;top:240px;font-size:168px;width:1080px">La carrera<br>que va a<br><span class="y">dirigir el futuro</span></h1>
+  <p class="firma e e5">Emmanuel Ortiz Serna &nbsp;·&nbsp; <span style="font-weight:500;color:#DDE5FA">Representación estudiantil 2027</span></p>
+  <p class="credito" style="right:24px;bottom:16px">Foto: Wikimedia Commons</p>
+</section>
+
+<!-- 2 · MERCO -->
+<section class="slide" data-nota="Gancho. Arrancar con el dato, sin rodeos.">
+  <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:50px;color:var(--amarillo)">21 de octubre de 2026</p>
+  <h2 class="d e e2" style="position:absolute;left:80px;top:230px;font-size:104px;width:980px">Merco publicó los <span class="y">100 líderes</span> con mejor reputación de Colombia.</h2>
+  <p class="cuerpo e e3" style="position:absolute;left:80px;top:760px;width:820px">Merco Líderes, edición 19. Más de 2.600 encuestas a directivos, analistas, periodistas y expertos.</p>
+  <div class="papel e e4" style="left:1150px;top:90px;width:640px;height:880px;transform:rotate(2.5deg);padding:34px">
+    <img src="img/ranking-larepublica.webp" alt="Tabla de La República con el top 10 de Merco Líderes 2026" style="width:100%;height:100%;object-fit:cover;object-position:50% 0%;mix-blend-mode:multiply">
+  </div>
+  <div class="cinta" style="left:1390px;top:62px;transform:rotate(-6deg)"></div>
+  <p class="credito" style="right:24px;bottom:16px">Gráfico: La República</p>
+  <p class="num">2/15</p>
+</section>
+
+<!-- 3 · EL NÚMERO 1 -->
+<section class="slide" data-nota="Dejar que el 10.000 respire un segundo.">
+  <img class="e e2" src="img/circulo-halftone.png" alt="" style="position:absolute;right:120px;top:150px;width:860px">
+  <img class="e e3" src="img/mora-retrato-col.png" alt="Juan Carlos Mora Uribe" style="position:absolute;right:140px;bottom:0;height:900px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.25))">
+  <p class="mano e e1" style="position:absolute;left:80px;top:140px;font-size:54px;color:var(--amarillo)">El número uno</p>
+  <h2 class="d e e2" style="position:absolute;left:80px;top:215px;font-size:112px;width:820px">Juan Carlos<br>Mora Uribe</h2>
+  <p class="cuerpo e e3" style="position:absolute;left:84px;top:470px;font-size:34px">Presidente de <b>Bancolombia</b></p>
+  <p class="d y e e4" style="position:absolute;left:76px;top:590px;font-size:230px;line-height:.9">10.000</p>
+  <p class="mano e e5" style="position:absolute;left:90px;top:810px;font-size:52px">puntos. puntaje perfecto.</p>
+  <p class="credito" style="right:24px;bottom:16px">Foto: Grupo Bancolombia</p>
+  <p class="num">3/15</p>
+</section>
+
+<!-- 4 · PREGUNTA -->
+<section class="slide" data-nota="Pausa. Mirar al público antes de responder.">
+  <svg class="rayos e e3" viewBox="0 0 300 300" style="position:absolute;left:1340px;top:180px;width:330px;transform:rotate(14deg)">
+    <path d="M40 140 L18 60 L58 52 Z"/><path d="M98 104 L96 14 L136 20 Z"/><path d="M160 112 L196 34 L226 58 Z"/><path d="M196 166 L276 140 L282 178 Z"/>
+  </svg>
+  <h2 class="d e e1" style="position:absolute;left:80px;top:300px;font-size:250px">¿Saben qué<br><span class="y">estudió?</span></h2>
+  <p class="num">4/15</p>
+</section>
+
+<!-- 5 · LA RESPUESTA -->
+<section class="slide" data-nota="Remarcar: aquí, en EAFIT. Lo mismo que estudiamos nosotros.">
+  <img class="e e4" src="img/mora-bancolombia-col.png" alt="Juan Carlos Mora con los brazos cruzados" style="position:absolute;right:170px;bottom:0;height:820px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.25))">
+  <h2 class="d e e1" style="position:absolute;left:80px;top:200px;font-size:150px;width:1200px">Administración<br>de Negocios.</h2>
+  <h2 class="d y e e2" style="position:absolute;left:80px;top:530px;font-size:150px">Aquí, en EAFIT.</h2>
+  <p class="mano e e3" style="position:absolute;left:90px;top:740px;font-size:50px">(después hizo un MBA en Babson College)</p>
+  <p class="credito" style="right:24px;bottom:16px">Foto: Cambio</p>
+  <p class="num">5/15</p>
+</section>
+
+<!-- 6 · 16 DE 100 -->
+<section class="slide" data-nota="Y no está solo. 16 de esos 100 son eafitenses. Señalar la grilla: cada cuadro es un puesto del ranking.">
+  <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:52px;color:var(--amarillo)">y no está solo</p>
+  <h2 class="d e e2" style="position:absolute;left:80px;top:225px;font-size:300px;line-height:.85">16<span style="font-size:.42em" class="y"> de 100</span></h2>
+  <p class="d e e3" style="position:absolute;left:84px;top:520px;font-size:84px">son eafitenses.</p>
+  <p class="cuerpo e e4" style="position:absolute;left:84px;top:650px;width:640px">Cada cuadro es un puesto del ranking. Los que tienen cara estudiaron en esta universidad.</p>
+  <div class="grilla" id="grilla100" style="left:1000px;top:100px"></div>
+  <p class="credito" style="right:24px;bottom:16px">Fotos: Universidad EAFIT</p>
+  <p class="num">6/15</p>
+</section>
+
+<!-- 7 · LA RECTORA -->
+<section class="slide" data-nota="Entre ellos, nuestra rectora. También administradora de negocios.">
+  <img class="e e2" src="img/circulo-halftone.png" alt="" style="position:absolute;right:170px;top:170px;width:780px;transform:rotate(180deg)">
+  <img class="e e3" src="img/restrepo-sentada-col.png" alt="Claudia Restrepo Montoya" style="position:absolute;right:300px;bottom:0;height:960px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.25))">
+  <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:52px;color:var(--amarillo)">entre ellos, nuestra rectora</p>
+  <h2 class="d e e2" style="position:absolute;left:80px;top:225px;font-size:118px;width:860px">Claudia<br>Restrepo<br>Montoya</h2>
+  <p class="d e e4" style="position:absolute;left:84px;top:640px;font-size:60px;width:820px">También <span class="y">administradora<br>de negocios</span> de EAFIT.</p>
+  <p class="cuerpo e e5" style="position:absolute;left:84px;top:840px">Puesto <b>24</b> en Merco Líderes 2026.</p>
+  <p class="credito" style="right:24px;bottom:16px">Foto: El Espectador</p>
+  <p class="num">7/15</p>
+</section>
+
+<!-- 8 · NO ES CASUALIDAD -->
+<section class="slide" data-nota="Un país de más de 52 millones. Eso no es casualidad.">
+  <p class="mano e e1" style="position:absolute;left:80px;top:170px;font-size:52px">en un país de</p>
+  <p class="d e e2" style="position:absolute;left:76px;top:240px;font-size:220px;line-height:.9">+52 millones</p>
+  <p class="d e e3" style="position:absolute;left:80px;top:460px;font-size:80px">de personas…</p>
+  <h2 class="d y e e4" style="position:absolute;left:80px;top:640px;font-size:180px">Eso no es casualidad.</h2>
+  <p class="credito" style="right:24px;bottom:16px">Población: proyección DANE</p>
+  <p class="num">8/15</p>
+</section>
+
+<!-- 9 · EL MITO -->
+<section class="slide" data-nota="El mito. Bajar el tono, como quien repite algo que ya escuchó mil veces.">
+  <p class="mano e e1" style="position:absolute;left:80px;top:150px;font-size:52px;color:var(--amarillo)">muchas veces nos han dicho que…</p>
+  <div class="papel e e2" style="left:110px;top:270px;width:900px;height:250px;transform:rotate(-2deg);display:flex;align-items:center;padding:0 60px">
+    <p class="d" style="color:var(--tinta);font-size:96px">"Es una carrera fácil."</p>
+  </div>
+  <div class="cinta" style="left:160px;top:250px;transform:rotate(-12deg)"></div>
+  <div class="papel e e3" style="left:620px;top:590px;width:1180px;height:250px;transform:rotate(1.6deg);display:flex;align-items:center;padding:0 60px">
+    <p class="d" style="color:var(--tinta);font-size:96px">"La que se escoge por descarte."</p>
+  </div>
+  <div class="cinta" style="left:1560px;top:568px;transform:rotate(9deg)"></div>
+  <p class="num">9/15</p>
+</section>
+
+<!-- 10 · LA PREGUNTA INCÓMODA -->
+<section class="slide" data-nota="Entonces… pregunta directa. Sin sarcasmo.">
+  <p class="mano e e1" style="position:absolute;left:80px;top:290px;font-size:56px;color:var(--amarillo)">entonces…</p>
+  <h2 class="d e e2" style="position:absolute;left:80px;top:380px;font-size:136px;width:1600px">¿Por qué los que dicen eso <span class="y">no están en esa lista?</span></h2>
+  <p class="num">10/15</p>
+</section>
+
+<!-- 11 · EL SENTIDO -->
+<section class="slide" data-nota="El sentido de la carrera. Tres verbos: ocupar, tener, liderar.">
+  <p class="mano e e1" style="position:absolute;left:80px;top:200px;font-size:52px;color:var(--amarillo)">aquí nos están formando para</p>
+  <div style="position:absolute;left:80px;top:300px">
+    <p class="d e e2" style="font-size:118px">Ocupar <span class="y">esos espacios.</span></p>
+    <p class="d e e3" style="font-size:118px;margin-top:20px">Tener <span class="y">esas conversaciones.</span></p>
+    <p class="d e e4" style="font-size:118px;margin-top:20px">Liderar <span class="y">las transformaciones</span></p>
+  </div>
+  <p class="mano e e5" style="position:absolute;left:90px;top:840px;font-size:56px">de las organizaciones del país.</p>
+  <p class="num">11/15</p>
+</section>
+
+<!-- 12 · LA EXIGENCIA -->
+<section class="slide" data-nota="Punto delicado: hablar en positivo. Primer nivel, no 'profes malos'. Si gano, voy a trabajar con la facultad.">
+  <h2 class="d e e1" style="position:absolute;left:80px;top:130px;font-size:110px;width:1700px">Si queremos llegar allá, <span class="y">necesitamos ser los mejores.</span></h2>
+  <p class="mano e e2" style="position:absolute;left:90px;top:420px;font-size:54px">y para eso merecemos estar bien representados:</p>
+  <div class="papel e e3" style="left:110px;top:560px;width:780px;height:330px;transform:rotate(-1.5deg);padding:56px 60px">
+    <p class="mano" style="color:var(--azul);font-size:40px">exigir</p>
+    <p class="d" style="color:var(--tinta);font-size:84px;margin-top:10px">Profesores de<br>primer nivel</p>
+  </div>
+  <div class="cinta" style="left:150px;top:540px;transform:rotate(-10deg)"></div>
+  <div class="papel e e4" style="left:980px;top:580px;width:820px;height:330px;transform:rotate(1.4deg);padding:56px 60px">
+    <p class="mano" style="color:var(--azul);font-size:40px">exigir</p>
+    <p class="d" style="color:var(--tinta);font-size:72px;margin-top:10px">Una formación a la altura de lo que vamos a liderar</p>
+  </div>
+  <div class="cinta" style="left:1560px;top:560px;transform:rotate(8deg)"></div>
+  <p class="num">12/15</p>
+</section>
+
+<!-- 13 · NO SOMOS -->
+<section class="slide" data-nota="Cierre. Decirlo con calma, las tachaduras hacen el trabajo.">
+  <img class="e e3" src="img/circulo-halftone.png" alt="" style="position:absolute;right:-260px;bottom:-300px;width:900px;transform:rotate(90deg)">
+  <h2 class="d e e1" style="position:absolute;left:80px;top:170px;font-size:120px">No somos la carrera</h2>
+  <p class="d e e2" style="position:absolute;left:80px;top:330px;font-size:120px">de los <span class="tachon">desparchados</span></p>
+  <p class="d e e3" style="position:absolute;left:80px;top:490px;font-size:120px">ni de los que llegaron</p>
+  <p class="d e e4" style="position:absolute;left:80px;top:650px;font-size:120px"><span class="tachon">por descarte.</span></p>
+  <p class="num">13/15</p>
+</section>
+
+<!-- 14 · SOMOS -->
+<section class="slide" data-nota="Remate. Pausa antes de 'por eso quiero ser su representante'.">
+  <svg class="rayos e e3" viewBox="0 0 300 300" style="position:absolute;left:1420px;top:80px;width:360px;transform:rotate(10deg)">
+    <path d="M40 140 L18 60 L58 52 Z"/><path d="M98 104 L96 14 L136 20 Z"/><path d="M160 112 L196 34 L226 58 Z"/><path d="M196 166 L276 140 L282 178 Z"/>
+  </svg>
+  <h2 class="d e e1" style="position:absolute;left:80px;top:190px;font-size:160px;width:1500px">Somos la carrera<br>que va a <span class="y">dirigir<br>el futuro.</span></h2>
+  <p class="mano e e4" style="position:absolute;left:90px;top:760px;font-size:62px;color:var(--amarillo)">por eso quiero ser su representante.</p>
+  <p class="firma e e5">Emmanuel Ortiz Serna &nbsp;·&nbsp; <span style="font-weight:500;color:#DDE5FA">Administración de Negocios · EAFIT</span></p>
+</section>
+
+<!-- 15 · FUENTES -->
+<section class="slide" data-nota="Tener a mano si alguien pregunta por los datos.">
+  <h2 class="d e e1" style="position:absolute;left:80px;top:110px;font-size:90px">Cada cifra <span class="y">tiene fuente</span></h2>
+  <ul class="cuerpo e e2" style="position:absolute;left:84px;top:270px;width:1700px;font-size:25px;list-style:none;line-height:1.75">
+    <li><b>Merco Líderes Colombia 2026</b>, edición 19, publicado el 21 de octubre de 2026. La República, «Juan Carlos Mora, presidente de Bancolombia, es el líder del ranking Merco Líderes 2026».</li>
+    <li><b>16 eafitenses en el top 100</b> y puestos de cada uno: Universidad EAFIT, «Estos 16 eafitenses están entre los 100 líderes con mejor reputación del país», 22 de octubre de 2026.</li>
+    <li><b>Formación de Juan Carlos Mora</b>: Administrador de Negocios de EAFIT, MBA de Babson College. World Economic Forum, perfil de Juan Carlos Mora.</li>
+    <li><b>Claudia Restrepo Montoya</b>: administradora de negocios de EAFIT, rectora desde 2021. Forbes Colombia y El Colombiano.</li>
+    <li><b>Población de Colombia</b>: más de 52 millones según las proyecciones del DANE.</li>
+    <li><b>Fotos</b>: Grupo Bancolombia, Cambio, El Espectador, Universidad EAFIT, La República y Wikimedia Commons. Uso académico.</li>
+  </ul>
+  <p class="num">15/15</p>
+</section>
+
+</div>
+<p id="ayuda">← → para avanzar · F pantalla completa</p>
+<script>
+(function(){
+  const puestos={1:'01',11:'11',17:'17',24:'24',26:'26',27:'27',32:'32',56:'56',57:'57',61:'61',71:'71',74:'74',84:'84',89:'89',90:'90',94:'94'};
+  const g=document.getElementById('grilla100'); let orden=0;
+  for(let i=1;i<=100;i++){
+    const c=document.createElement('div');
+    if(puestos[i]){c.className='celda f';c.style.transitionDelay=(0.5+orden++*0.07)+'s';
+      c.innerHTML='<img src="img/cara-'+puestos[i]+'.jpg" alt=""><span>'+i+'</span>';}
+    else{c.className='celda';c.textContent=i;}
+    g.appendChild(c);
+  }
+  const slides=[...document.querySelectorAll('.slide')];
+  const esc=document.getElementById('escenario');
+  const params=new URLSearchParams(location.search);
+  let i=Math.max(0,Math.min(slides.length-1,(parseInt(params.get('s')||location.hash.slice(1)||'1',10)||1)-1));
+  if(params.has('estatico')){document.body.classList.add('estatico');slides.forEach(s=>s.classList.add('estatico'));document.getElementById('ayuda').style.display='none'}
+  function ajustar(){const k=Math.min(innerWidth/1920,innerHeight/1080);esc.style.transform='translate(-50%,-50%) scale('+k+')'}
+  function ir(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,j)=>s.classList.toggle('activa',j===i));history.replaceState(null,'','#'+(i+1))}
+  addEventListener('resize',ajustar);ajustar();ir(i);
+  setTimeout(()=>{const h=document.getElementById('ayuda');h.style.transition='opacity .6s';h.style.opacity='0'},4000);
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();ir(i+1)}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();ir(i-1)}
+    else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+    else if(e.key==='Home')ir(0);else if(e.key==='End')ir(slides.length-1);
+  });
+  addEventListener('click',e=>{ if(e.clientX>innerWidth/3) ir(i+1); else ir(i-1); });
+  let x0=null;addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)ir(dx<0?i+1:i-1);x0=null});
+})();
+</script>
+</body>
+</html>
